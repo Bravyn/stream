@@ -7,7 +7,9 @@ def reco():
 
 
 def get_movie_title():
-    movie_name = st.text_input("Type movie name here")
+    movie_name = st.text_input("Type movie name here")  
+    st.caption("__Try The Butterfly Effect__")
+
     return movie_name
 
 def show_movies():
@@ -52,6 +54,4 @@ with c2:
 
 if show == True:
     show_movies() 
-else:
-    st.warning('Not found')
 
