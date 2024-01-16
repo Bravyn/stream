@@ -1,5 +1,6 @@
 import streamlit as st
 st.set_page_config(" rekomender ")
+
 global movies
 movies = ["The Butterfly Effect", "The Light Effect", "The Men", "CyberGirl" ]
 def reco():
