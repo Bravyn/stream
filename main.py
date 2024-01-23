@@ -1,7 +1,6 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
+from fastapi import FastAPI, Form
+from typing import Annotated
 import pandas as pd
-import pickle
 # Vectorization: Creating each movie as a Vector
 from sklearn.feature_extraction.text import CountVectorizer
 # Calculating Cosine Angle between vectors
@@ -24,10 +23,6 @@ model_vector = cv.fit_transform(df["tags"]).toarray()
 
 similar = cosine_similarity(model_vector)
 
-class Details(BaseModel):
-    movie: str
-    description: str
-
 
 # Creating our Recommend function it will return Top 5 movies back
 def recommender(movie):
@@ -48,7 +43,9 @@ async def root():
     return {"rs_api" : "recommendation system api"}
 
 @app.post("/recommender")
-async def recommendations(details = Details):
-    recom = recommender(details)
+async def recommendations(
+    movie = Annotated[str, Form()]
+    ):
+    recom = recommender(movie)
     return {"recom": recom}
 
