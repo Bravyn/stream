@@ -48,7 +48,7 @@ async def root():
     return {"rs_api" : "recommendation system api"}
 
 @app.post("/recommender")
-async def recommendations(movie = Details):
-    recom = recommender(movie)
+async def recommendations(details = Details):
+    recom = recommender(details)
     return {"recom": recom}
 
