@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 import pandas as pd
-import streamlit as st
 import pickle
 # Vectorization: Creating each movie as a Vector
 from sklearn.feature_extraction.text import CountVectorizer
@@ -13,11 +12,11 @@ cv = CountVectorizer(max_features=5000, stop_words="english")
 
 
 
-df = pd.read_csv("/home/paul/Mindscope/Mindscope/stream/models/final_data.csv")
+df = pd.read_csv("/home/paul/Mindscope/stream/models/final_data.csv")
 
-model_vector = pd.read_pickle(r"/home/paul/Mindscope/Mindscope/stream/models/similar.pkl"
+model_vector = pd.read_pickle(r"/home/paul/Mindscope/stream/models/similar.pkl"
 )
-movies = pd.read_pickle(r"/home/paul/Mindscope/Mindscope/stream/models/movies.pkl")
+movies = pd.read_pickle(r"/home/paul/Mindscope/stream/models/movies.pkl")
 df = df.drop(["Unnamed: 0"], axis=1)
 
 
