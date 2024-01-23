@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
 import pandas as pd
 import pickle
 # Vectorization: Creating each movie as a Vector
@@ -9,7 +10,6 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 app = FastAPI()
 cv = CountVectorizer(max_features=5000, stop_words="english")
-
 
 
 df = pd.read_csv("/home/paul/Mindscope/stream/models/final_data.csv")
@@ -23,6 +23,11 @@ df = df.drop(["Unnamed: 0"], axis=1)
 model_vector = cv.fit_transform(df["tags"]).toarray()
 
 similar = cosine_similarity(model_vector)
+
+class Details(BaseModel):
+    movie: str
+    description: str
+
 
 # Creating our Recommend function it will return Top 5 movies back
 def recommender(movie):
@@ -38,9 +43,12 @@ def recommender(movie):
     return movie_titles
 
 
-@app.post("/")
+@app.get("/")
 async def root():
-    recommendations = recommender("Pirates of the Caribbean: At World's End")
+    return {"rs_api" : "recommendation system api"}
 
-    return {"recommendations" : recommendations}
-    
+@app.post("/recommender")
+async def recommendations(movie = Details):
+    recom = recommender(movie)
+    return {"recom": recom}
+
