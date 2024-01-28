@@ -1,6 +1,8 @@
 from fastapi import FastAPI, Form
 from typing import Annotated
 import pandas as pd
+import streamlit as st
+
 # Vectorization: Creating each movie as a Vector
 from sklearn.feature_extraction.text import CountVectorizer
 # Calculating Cosine Angle between vectors
@@ -32,7 +34,7 @@ def recommender(movie):
     movie_titles = []
     for i in movie_list:
         movie_ttl = df.iloc[i[0]].title 
-        print(movie_ttl)
+        st.info(movie_ttl)
         movie_titles.append(movie_ttl)
         
     return movie_titles
